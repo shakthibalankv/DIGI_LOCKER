@@ -30,7 +30,7 @@ int main()
 	IODIR0 |= m1 | m2 | buzzer;
 	LCD_INIT();
 	UART0_CONFIG();
-	scroll_left_to_right("HELLO WORLD");
+	scroll_left_to_right("Forti : A secure Two-factor authentication based bank locker access control system");
 	/*otp generation using timer*/
 	T0TCR=0X02;
 	T0PR=15000-1;

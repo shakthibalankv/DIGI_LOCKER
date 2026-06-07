@@ -33,7 +33,7 @@ int main()
 	scroll_left_to_right("Forti : A secure Two-factor authentication based bank locker access control system");
 	/*otp generation using timer*/
 	T0TCR=0X02;
-	T0PR=15000-1;
+	T0PR=8000-1;
 	T0TCR=0x01;
 	
 	while(1)
@@ -135,7 +135,7 @@ void get_otp(char *p)
 void generate_otp(void)
 {
 	int i,temp;
-	otp_num=((T0TC+T0PC)%9000)+1000;
+	otp_num=(((T0TC*1000)+T0PR)%9000)+1234;
 	temp=otp_num;
 	for(i=3;i>=0;i--)
 	{

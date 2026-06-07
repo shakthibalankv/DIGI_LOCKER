@@ -58,12 +58,14 @@ return key_lut[row_val][col_val];
 }
 
 	
-int KEYPAD(void){
-	int res;
-	while(1){
-		res=keyscan();
-		res=((res%10)+48);
-		return res;
-		
-	}
+int KEYPAD(void)
+{
+    int res;
+    res = keyscan();            // Returns 1–16 from LUT
+
+    if(res <= 9)
+        return (res + '0');     // '1' to '9'
+    else
+        return (res + '0');     // For your project keys 10-16 as needed
 }
+

@@ -32,10 +32,8 @@ int main()
 	UART0_CONFIG();
 	scroll_left_to_right("Forti : A secure Two-factor authentication based bank locker access control system");
 	/*otp generation using timer*/
-	T0TCR=0X02;
-	T0PR=8000-1;
-	T0TCR=0x01;
-	
+  T1PR=0;
+	T1TCR=0X01;
 	while(1)
 	{
 		LCD_COMMAND(0x01);
@@ -134,15 +132,16 @@ void get_otp(char *p)
 /*otp generation*/
 void generate_otp(void)
 {
-	int i,temp;
-	otp_num=(((T0TC*1000)+T0PR)%9000)+1234;
-	temp=otp_num;
-	for(i=3;i>=0;i--)
-	{
-		otp[i]=(temp%10)+'0';
-		temp=temp/10;
-	}
-	otp[4]='\0';
+    int i, temp;
+    unsigned int seed = T1TC;   
+    otp_num = ((seed >> 3) ^ (seed >> 7) ^ seed) % 9000 + 1000;
+    temp = otp_num;
+    for(i = 3; i >= 0; i--)
+    {
+        otp[i] = (temp % 10) + '0';
+        temp = temp / 10;
+    }
+    otp[4] = '\0';
 }
 
 /*---------------- BUZZER ----------------*/
